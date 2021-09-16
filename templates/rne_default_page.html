@@ -1,0 +1,576 @@
+{% extends 'skeleton.html' %} 
+{% block title %} RNE-QC {% endblock %} 
+{% block links %}
+<link
+	rel="stylesheet"
+	href="{{ url_for('static', filename='assets/css/show_query.css') }}?u={{ LAST_UPDATED }}"
+	type="text/css"
+	xmlns="http://www.w3.org/1999/html"
+	/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='assets/css/rnewindow.css') }}?u={{ LAST_UPDATED }}"
+  type="text/css"
+  xmlns="http://www.w3.org/1999/html"
+/>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='assets/css/filters.css') }}?u={{ LAST_UPDATED }}"
+  type="text/css"
+  xmlns="http://www.w3.org/1999/html"
+/>
+{% endblock %}
+
+{% block navbar %} {% endblock %} 
+
+{% block body %}
+	<div id="edit-rne-window" class="">
+		<div class="inner-container">
+			<div id="edit-rne-header">
+				<span id="edit-rne-bugid">CSCxx00000</span>
+				<span class="" id="btn-dismiss-rne-window">Dismiss</span>
+				<span class="" id="btn-move-rne-window">Move</span>
+			</div>
+			<div class="expanded" id="edit-rne-body">
+				<div class="left-section expanded" id="rne-guidelines">
+					<!-- <button class=""  >H E L P E R</button> -->
+					<span class="helper-header">
+							<span id="helper-expand">Guidelines Headline</span>
+							<button id="helper-collapse">Close</button>
+					</span>
+					<div class="rne-helper-sections-container" id="edit-rne-body-info">
+						<div class="rne-helper-sections" id = "RNE_headline">
+							<b>What to consider:​</b>
+							<ul>
+								<li>This is the single most important piece of information – <strong>must make sense to a non-subject matter expert.</strong> ​</li>
+								<li>You want to convey a high-level summary of the issue to provide a general idea on the scope of the problem.​</li>
+								<li>Craft this carefully to make searching for bugs easier. ​</li>
+								<li>OK to include the top-of-the stack function in case of exception (helps with internal searches)​</li>
+							</ul>
+							<b>What to avoid:​</b>
+							<ul>
+								<li>Spelling mistakes? Correct them.​</li>
+								<li>No information that might identify the customer (hostname, IP address, password, username, etc.)​</li>
+								<li>Internal codename (e.g. Lindt)? Remove it.​</li>
+								<li>Do not mention XR release in Headline unless only a single XR release is confirmed to be exposed​</li>
+								<li>See the word “crash”? Replace it with “traceback and reload” or “process exception and restart”​</li>
+							</ul>
+							<b>Great RNE Examples:</b>
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+						<div class="rne-helper-sections" id = "RNE_flag">
+							<b>NONE​</b>
+							<ul>
+								<li>Default value​</li>
+								<li>Select this unless you have a very good reason to choose one of the $$ flags​</li>
+							</ul>
+							<b>$$IGNORE​</b>
+							<ul>
+								<li>Only used for bugs that customers will never see. </li>
+								<li>Reason for suppressing the Release-note must be clearly explained in Release-note enclosure.​</li>
+								<li>Example:​
+									<br/>
+									Bugs related to makefile or other changes that affect how images are compiled.​
+								</li>
+							</ul>
+							<b>$$PREFCS</b>​
+							<ul>
+							<li>Used for bugs that exist in a feature or functionality that has never been released to customers ​​</li>
+							<li>If a released feature is tested in an unreleased software, do not use the $$PREFCS flag.​​</li>
+							<ul>
+							<b>$$IGNORE-PSIRT</b>
+							<ul>
+								<li>This flag is added when you explicitly want to hide a bug because you believe it is a Security Vulnerability in our product. After doing so, you must notify psirt@cisco.com of the bug​​</li>
+								<li>Additionally, the Product Security Incident Response Team (PSIRT) will add this flag to all bugs they are reviewing for potential security vulnerabilities. If the bug is deemed not a vulnerability, then PSIRT will remove the flag and release the bug.  If it is deemed a vulnerability, then PSIRT will remove the flag ONLY when they publish an external Advisory. ​​</li>
+								<li> DO NOT remove this flag once it has been set. Only PSIRT will remove this flag.​​</li>
+							</ul>
+							<b>Great RNE Examples:</b>
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+						<div class="rne-helper-sections" id = "RNE_symptoms">
+							<b>What to consider:​</b>
+							<ul>
+								<li>What does the customer see when this bug is hit?​ ​</li>
+								<li>Ask yourself what uniquely identifies/differentiates this bug from other bugs with similar symptoms?​ ​</li>
+								<li>If symptom is identified by a syslog message, trace message, show command output, provide an example​ ​</li>
+								<li>No need to paste full command output, just show the command and relevant parts of the output​ ​</li>
+								<li>Example #1: syslog message:​ <br/>
+									RP/0/RSP0/CPU0:Nov 16 14:39:51.951 CET: dumper[60]: %OS-DUMPER-7-DUMP_REQUEST : Dump request for process pkg/bin/cdp ​
+								</li>
+								<li>Example #2: show command output:​<br/>
+									RP/0/RSP0/CPU0:router#show drops np np1 location 0/0/CPU0​<br/>
+									RSV_DROP_IPV4_TXADJ_NO_MATCH                    172619 ​
+								</li>
+							</ul>
+							<b>What to avoid:​</b>
+							<ul>
+								<li>Spelling mistakes? Correct them.​</li>
+								<li>No information that might identify the customer (hostname, IP address, password, username, etc.)​</li>
+								<li>Internal codename (e.g. Lindt)? Remove it.​</li>
+								<li>Do not mention XR release in Headline unless only a single XR release is confirmed to be exposed​</li>
+								<li>See the word “crash”? Replace it with “traceback and reload” or “process exception and restart”​</li>
+							</ul>
+							<b>Great RNE Examples:</b> 
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+						<div class="rne-helper-sections" id = "RNE_conditions">
+							<b>What to consider:​</b>
+							<ul>
+								<li>"Conditions" section should describe the <b>Conditions, Trigger </b>and <b>Impact.</b>​</li>
+							</ul>
+							<b>Conditions:​</b>
+							<ul>
+								<li>Describes the customer environment under which the problem has occurred or might occur.​</li>
+								<li>Examples: specific Hardware or Software configurations, network conditions, type of packet flows​</li>
+								<li>Clearly state whether <b>any</b> or <b>all</b> listed conditions must be met to hit this bug​</li>
+							</ul>
+							<b>Trigger:​</b>
+							<ul>
+								<li>Describes the events that may trigger the problem​​</li>
+								<li>Examples: polling of a specific SNMP OID; Primary path flap; etc.​​</li>
+							</ul>
+							<b>Impact:​</b>
+							<ul>
+								<li>Describes the impact on the device operations, protocol behaviour, network services.​</li>
+								<li>Quantify the impact when possible​​​</li>
+								<li>Examples:​<br/>
+									one execution of command X leaks 32kB of heap memory;​<br/>
+									peer flaps every 10s;
+								</li>
+							</ul>
+							<b> What to avoid:​</b>
+							<ul>
+								<li>Spelling mistakes? Correct them.​</li>
+								<li>No information that might identify the customer (hostname, IP address, password, username, etc.)​</li>
+								<li>Internal codename (e.g. Lindt)? Remove it.​</li>
+								<li>Do not mention XR release in Headline unless only a single XR release is confirmed to be exposed​</li>
+								<li>See the word “crash”? Replace it with “traceback and reload” or “process exception and restart”​</li>
+							</ul>
+							<b>Great RNE Examples:</b> 
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+						<div class="rne-helper-sections" id= "RNE_workaround">
+							<b> What to consider:​</b>
+							<ul>
+								<li>”Workaround" section should describe the <b>Workaround</b> and <b>Recovery steps.</b> ​</li>
+								<li>Workaround is a proactive action that can be taken to avoid hitting the bug​​</li>
+								<li>Recovery steps restore functionality once the bug is hit​</li>
+							</ul>
+							<b> What to avoid:​</b>
+							<ul>
+								<li>Spelling mistakes? Correct them.​</li>
+								<li>No information that might identify the customer (hostname, IP address, password, username, etc.)​</li>
+								<li>“router reload” is not a workaround. Customers get upset when this is the only content of the Workaround section. Use this instead:​<br/>
+									Workaround:​<br/>
+									None. Reload router to recover.
+								</li>
+							</ul>
+							<b>Great RNE Examples:</b> 
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+						<div class="rne-helper-sections" id= "RNE_description">
+							<b> What to consider:​</b>
+							<ul>
+								<li><b>Further Problem Description" </b>section is<b> optional.​</b> ​</li>
+								<li>This section can be used to provide additional information about the fix, i.e. what behaviour should the user expect to observe once this fix is activated.​</li>
+								<li>This section can also be used to provide more details about the aspect of the feature related to this bug.​<br/>
+									E.g.: if the bug is related to duplicate MAC-IP route in EVPN deployment, it may be useful to explain when is a MAC-IP route considered a duplicate.
+								</li>
+							</ul>
+							<b> What to avoid:​</b>
+							<ul>
+								<li>Spelling mistakes? Correct them.​</li>
+								<li>No information that might identify the customer (hostname, IP address, password, username, etc.)​</li>
+								<li>Internal codename (e.g. Lindt)? Remove it.</li>
+							</ul>
+							<b>Great RNE Examples:</b> 
+							<p><a href="http://wwwin-qddtsnxtgen.cisco.com/qddts/index.jsp?pageName=result.html&type=complete&expert=Project%3ACSC.ena%20and%20Attribute%7ERNEQC-star&fields=Component,Severity,Status,Headline&order=asc" target="_blank">Excellent RNE Dashboard</a></p>
+						</div>
+					</div>
+
+				</div>
+				<div class="" id="edit-rne-form">
+					<div class="edit-input-group-container">
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">Headline:</label>
+							<input type="text" 
+								class="edit-rne-input" 
+								data-bugid=""
+								id="edit-rne-headline"
+								onfocus="hdfInputFocus('headline')">
+						</div>
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">RNE Flag:</label>
+							<select class="edit-rne-input" 
+								id="edit-rne-flag" 
+								data-bugid=""
+								init_val="--select field--"
+								onfocus="hdfInputFocus('flag')">
+								<option value="NONE">NONE(No Restrictions)</option>
+								<option value="IGNORE">$$IGNORE(No external publication,justification is required)</option>
+								<option value="IGNORE-PSIRT">$$IGNORE-PSIRT(No external publication,jusification is required,PSRIT owns this RNE)</option>
+								<option value="PREFCS">$$PREFCS(No external publication,bug cannot be experienced in a shipped product)</option>
+							</select>
+						</div>
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">Symptoms:</label>
+							<textarea class="edit-rne-input" 	
+								id="edit-rne-symptoms"
+								data-bugid=""
+								onfocus="hdfInputFocus('symptoms')"></textarea>
+						</div>
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">Conditions:</label>
+							<textarea class="edit-rne-input" 	
+								id="edit-rne-conditions"
+								data-bugid=""
+								onfocus="hdfInputFocus('conditions')"></textarea>
+						</div>
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">Workaround:</label>
+							<textarea class="edit-rne-input" 	
+								id="edit-rne-workaround"
+								data-bugid=""
+								onfocus="hdfInputFocus('workaround')"></textarea>
+						</div>
+						<div class="rne-input-group">
+							<label for="" class="edit-rne-label">Further Problem Description:</label>
+							<textarea class="edit-rne-input" 	
+								id="edit-rne-description"
+								data-bugid=""
+								onfocus="hdfInputFocus('description')"></textarea>
+						</div>
+					</div>
+					<div class="edit-action-container">
+						<span class="btn-edit-actions logger" id="edit-rne-logger" data-bugid=""></span>
+						<button class="btn-edit-actions success" id="btn-rne-save" onclick="saveRne(this)" data-bugid="">Save</button>
+                        <button class="btn-edit-actions neutral" onclick="resetRne(this)" data-bugid="">Reset</button>
+                        <button class="btn-edit-actions danger" onclick="toggle_window()" data-bugid="">Cancel</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- end edit window -->
+	
+	<section class="statistics-container">
+		<div class="row" id="statistic_holder">
+			<strong class="col-1">Statistics</strong>
+			<div class="col-11 stats-badges-holder"><span class="stat-value badge-parent badge-dark" id="bug-count"><span class="badge-child" id="span_bug_count">{{ DATA["bugs"] | length }}</span> Bugs</span></div>
+		</div>
+	</section>
+	
+	<br>
+
+	<section id="query-table" class="">
+		<div class="container-fluid pl-0">
+			<div class="row px-0 overflow-hidden">
+				<div class="col-12 p-0" style="width: 100vw; overflow-x: auto">
+					<table id="fixed_table" class="hide-this">
+						<thead class="main-table-header">
+							<th class="show-data c-sno">
+								#
+							</th>
+							<th class="show-data c-bug-comp">
+								<span class="my-auto align-middle">Bug ID<br>Component</span>
+							</th>
+							<th class="show-data c-sev-pri warp-hide-lot">
+								<span class="my-auto align-middle">Severity<br>Priority</span>
+							</th>
+							<th  class="show-data c-stat-rc warp-hide-lot">
+								<span class="my-auto align-middle">Status<br>Released-code</span>
+							</th>
+							<th class="show-data c-mgr-dir warp-hide-lot">
+								<span class="my-auto align-middle">Manager<br>Director</span>
+							</th>
+							<th class="show-data c-eng-sub warp-hide-lot">
+								<span class="my-auto align-middle">Engineer<br>Submitter</span>
+							</th>
+							<th class="show-data c-head-rneqc">
+								<span class="my-auto align-middle">Headline<br>RNEQC Status<br>RNEQC Notes</span>
+								<button class="toggle-btn-thead toggle-notes" data-toggle="show" onclick="return toggleNotes(this);">Hide Notes</button>
+							</th>
+							<th class="show-data c-ver-found-rne">
+								<span class="my-auto align-middle">Version<br>Found<br>Release-note</span>
+								<button class="toggle-btn-thead btn_toggle_rne">Hide All RNE</button>
+								<button class="toggle-btn-thead btn_expand_rne">Expand All RNE</button>
+							</th>
+						</thead>
+					</table>
+					<table
+						id="rneqc_home_table"
+						>
+						<thead class="filters-container">
+							<th class="show-data c-sno">
+								<button class="" id="reset-filters" onclick="return resetFilters();">Reset</button>
+							</th>
+							<th class="show-data c-bug-comp">
+								<select class="filter-select" id="component_filter" onchange="return updateFilter(this,'component')"></select>
+							</th>
+							<th class="show-data c-sev-pri warp-hide-lot">
+                  				<select class="filter-select" id="severity_filter" onchange="return updateFilter(this,'severity')"></select>
+								<br>
+								<select class="filter-select" id="priority_filter" onchange="return updateFilter(this,'priority')"></select>
+							</th>
+							<th  class="show-data c-stat-rc warp-hide-lot">
+                  				<select class="filter-select" id="status_filter" onchange="return updateFilter(this,'status')"></select>
+                  				<br>
+								<select class="filter-select" id="releasedCode_filter" onchange="return updateFilter(this,'releasedCode')"></select>
+							</th>
+							<th class="show-data c-mgr-dir warp-hide-lot">
+                  				<select class="filter-select" id="manager_filter" onchange="return updateFilter(this,'manager')"></select>
+								<br>
+								<select class="filter-select" id="director_filter" onchange="return updateFilter(this,'director')"></select>
+							</th>
+							<th class="show-data c-eng-sub warp-hide-lot">
+                  				<select class="filter-select" id="engineer_filter" onchange="return updateFilter(this,'engineer')"></select>
+							</th>
+							<th class="show-data c-head-rneqc">
+								<select class="filter-select" id="rneqcstatus_filter" onchange="return updateFilter(this,'rneqcstatus')"></select>
+							</th>
+							<th class="show-data c-ver-found-rne">
+								<select class="filter-select" id="rne_filter" onchange="return updateFilter(this,'rne')"></select>
+							</th>
+						</thead>
+						<thead class="main-table-header">
+							<th class="show-data c-sno">
+								#
+							</th>
+							<th class="show-data c-bug-comp">
+								<span class="my-auto align-middle">Bug ID<br>Component</span>
+							</th>
+							<th class="show-data c-sev-pri warp-hide-lot">
+								<span class="my-auto align-middle">Severity<br>Priority</span>
+							</th>
+							<th  class="show-data c-stat-rc warp-hide-lot">
+								<span class="my-auto align-middle">Status<br>Released-code</span>
+							</th>
+							<th class="show-data c-mgr-dir warp-hide-lot">
+								<span class="my-auto align-middle">Manager<br>Director</span>
+							</th>
+							<th class="show-data c-eng-sub warp-hide-lot">
+								<span class="my-auto align-middle">Engineer<br>Submitter</span>
+							</th>
+							<th class="show-data c-head-rneqc">
+								<span class="my-auto align-middle">Headline<br>RNEQC Status<br>RNEQC Notes</span>
+								<button class="toggle-btn-thead toggle-notes" data-toggle="show" onclick="return toggleNotes(this);">Hide Notes</button>
+							</th>
+							<th class="show-data c-ver-found-rne">
+								<span class="my-auto align-middle">Version<br>Found<br>Release-note</span>
+								<button class="toggle-btn-thead btn_toggle_rne">Hide All RNE</button>
+								<button class="toggle-btn-thead btn_expand_rne">Expand All RNE</button>
+							</th>
+						</thead>
+						<tbody id="view-rows">
+							{% set count = namespace(value=0) %} 
+							{% for row in DATA["bugs"] %}
+							{% set count.value = count.value + 1 %}
+							<tr class="show-row" id="{{ row['id'] }}">
+								<td class="show-data c-sno">
+									<span id="count_{{ count.value }}" name="count_{{ row['id'] }}" style="display: none;">{{ count.value }}</span>
+									<span class="dynamic-row-count">{{ count.value }}</span>
+								</td>
+								<td class="show-data c-bug-comp"
+									id="bugid-td">
+									<a 	target="_blank"
+										rel="noopener noreferrer"
+										href="{{ 'https://cdetsng.cisco.com/summary/#/defect/%s'%row['id'] }}"
+										>
+										<span>{{ row['id'] }}</span>
+									</a>
+									<br /><br />
+									<span class="dt-component" id="component_{{ row['id'] }}">{{ row['Component'] }}</span>
+								</td>
+								<td class="show-data c-sev-pri warp-hide-lot">
+									<span class="dt-severity" id="severity_{{ row['id'] }}">{% if row['Severity'] == "" %}-{% else %}{{ row['Severity'] }}{% endif %}</span>
+									<br /><br />
+									<span class="dt-priority" id="priority_{{ row['id'] }}">{% if row['DE-priority'] == "" %}-{% else %}{{ row['DE-priority'] }}{% endif %}</span>
+								</td>
+								<td class="show-data c-stat-rc warp-hide-lot">
+									<span class="dt-status" id="status_{{ row['id'] }}">{% if row['Status'] == "" %}-{% else %}{{ row['Status'] }}{% endif %}</span>
+									<br /><br />
+									<span class="dt-releasedCode" id="releasedCode_{{ row['id'] }}">{% if row['Released-code'] == "" %}-{% else %}{{ row['Released-code'] }}{% endif %}</span>
+								</td>
+								<td class="show-data c-mgr-dir warp-hide-lot">
+									<span class="dt-manager" id="manager_{{ row['id'] }}">{{ row['DE-manager'] }}</span>
+									<a href="webexteams://im?email={{ row['DE-manager'] }}@cisco.com"
+										><img
+										src="../../static/assets/img/webex_teams_logo.png"
+										width="13px"
+										height="13px"
+										alt="webex"
+										/></a>
+									<br /><br />
+									<span class="dt-director" id="director_{{ row['id'] }}">{{ row['DIRECTOR'] }}</span>
+									<a href="webexteams://im?email={{ row['DIRECTOR'] }}@cisco.com"
+										><img
+										src="../../static/assets/img/webex_teams_logo.png"
+										width="13px"
+										height="13px"
+										alt="webex"
+										/></a>
+								</td>
+								<td class="show-data c-eng-sub warp-hide-lot">
+									{% if row['Engineer'] == '' %}
+									<span class="unassign dt-engineer" id="engineer_{{ row['id'] }}">Unassign</span>
+									{% else %}
+									<span class="dt-engineer" id="engineer_{{ row['id'] }}"> {{ row['Engineer'] }}</span>
+<a href="webexteams://im?email={{ row['Engineer'] }}@cisco.com"
+										><img
+										src="../../static/assets/img/webex_teams_logo.png"
+										width="13px"
+										height="13px"
+										alt="webex"
+										/></a>
+									{% endif %}
+									<br /><br />
+									<span>{{ row['Submitter-id'] }}</span>
+									<a href="webexteams://im?email={{ row['Submitter-id'] }}@cisco.com"
+										><img
+										src="../../static/assets/img/webex_teams_logo.png"
+										width="13px"
+										height="13px"
+										alt="webex"
+										/></a>
+								</td>
+								<td class="show-data c-head-rneqc">
+									<strong id="bug_headline_{{ row['id'] }}">{{ row['Headline'] }}</strong>
+									<br />
+									<div class="rne-status-container" id ="rne-status-{{ row['id'] }}">
+										
+										<!-- <span id="attribute-{{ row['id'] }}" class="hide-this bug-attributes">{{ row['Attribute'] }}</span> -->
+										
+										<span class="rne-status-label" id="status-{{ row['id'] }}">RNE Status : </span>
+										
+										<select
+											class="rne-status-dropdown dt-rneqcstatus"
+											name="RNEQC_status"
+											id="rneqc-status-{{ row['id'] }}"
+											data-bugid="{{ row['id'] }}"
+											data-attributes="{{ row['Attribute'] }}"
+											data-value="{{ RNEQC_STATUS_LIST[0] }}"
+											onchange="return handleRneqcStatus(this,'{{ row['id'] }}')"
+											>
+											{% for item in RNEQC_STATUS_LIST %}
+											<option class="rneqc-status-options-{{ row['id'] }}" value="{{ item }}" data-status="{{ item }}">{{ item }}</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="" id="rneqc_{{ row['id'] }}" class="feature-notes">
+										<button class="btn-add-note" type="button" data-bs-toggle="collapse" data-bs-target="#note-container-{{ row['id'] }}" aria-expanded="false" aria-controls="note-container-{{ row['id'] }}">
+										Add Note</button>
+										<div class="saving-action-container">
+											<button class="btn-save-attr-note" type="button" onclick="return save_attribute_notes(this, '{{ row['id'] }}', '{{ USER }}');" id="btn_save_att_note_{{ row['id'] }}">
+											Save Note + Status</button>
+										</div>
+										<div class="feedback-message mr-3 hide-this" id="update-message-{{ row['id'] }}">
+												Note Added successfully
+										</div>
+										<div class="note-container collapse my-1 " id="note-container-{{ row['id'] }}">
+											<div class="add-note-container" id ="note-data-{{ row['id'] }}">
+												<div class="credentials" id="credentials-{{ row['id'] }}">
+													<span class="user-id">{{ USER }}</span>
+													<br>
+													<span class="current-date"></span>
+												</div>
+												<textarea class="note-input" style="min-height:75px" aria-label="With textarea" id="new-note-{{ row['id'] }}" placeholder="Type your note here ..."></textarea>
+											</div>
+										</div>
+									</div>
+									<div id="display-notes-{{ row['id'] }}" class="display-notes-container mt-2 responsive" data-bugid="{{ row['id'] }}">
+										Loading <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+									</div>
+									<div id="previous-notes-{{ row['id'] }}" class="previous-notes-container mt-2" data-bugid="{{ row['id'] }}">
+										{{ row['ENCL-RNE_QC'] | safe }}
+									</div>
+								</td>
+								<td class="show-data c-ver-found-rne">
+                                    <span class="">{% if row['Version'] == "" %}-{% else %}{{ row['Version'] }}{% endif %}</span>
+                                    <br />
+                                    <span class="">{% if row['Found'] == "" %}-{% else %}{{ row['Found'] }}{% endif %}</span>
+                                    <br/>
+                                    <div class="rne-action-btn-container" id="addnote_{{ row['id'] }}" style="font-size: 15px;">
+	                                    {% if row['ENCL-Release-note'] != "" %}
+                                        <button class="btn-view-rne btn-rne-action" data-bugid="{{ row['id'] }}" id="rne-toggle-{{ row['id'] }}"
+                                                onclick="showRne(this, '{{ row['id'] }}')"><span class="action">Hide</span> <span class="rne">Release-note</span></button>
+                                        <button
+                                            id="{{ row['id'] }}-rne-edit"
+                                            title="Edit RNE"
+                                            onclick="return editRNE(this, '{{ row['id'] }}');"
+                                            style="cursor: pointer;"
+                                            >
+                                            <img src="{{ url_for('static', filename='assets/img/icon-edit.svg') }}?u={{ LAST_UPDATED }}" alt="Edit RNE" width="20" height="20">
+                                        </button>
+										<span id="offender-logic-{{ row['id']}}" class="text-danger" style="font-size: 0.9em;"></span>
+										{% else %}
+											<button 
+												title="Add RNE"
+												onclick="return editRNE(this, '{{ row['id'] }}', true);"
+												class="mt-2 btn-add-rne btn-rne-action"
+												id="add-rne-{{ row['id']}}">
+												Add RNE <i class="ml-1 fas fa-folder-plus"></i>
+											</button>
+											<span id="offender-logic-{{ row['id']}}" class="text-danger" style="font-size: 0.9em;"></span>
+										{% endif %}
+									    <hr id="rne-divider" class="show">
+                                    </div>
+                                    <div class="view-rne-container show" id="show-rne-container-{{ row['id'] }}">
+										{% if row['ENCL-Release-note'] == "" %}
+										<span class="text-danger" style="font-size: 0.9em;">
+											<i>Missing RNE. You can Add one by clicking the 'Add RNE'</i>
+										</span>
+										{% else %}
+										<b>RNE Publication Restrictions</b>
+										<br>
+										<span class="rne-data rne-res-data">
+										{{ row['ENCL-Release-note'].replace('<B>','</span><hr><B>').replace('</B>','</B><br><span class="rne-data">') | safe }}
+										{% endif %}
+                                    </div>
+                                    
+                                </td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+    <!-- Alert Modal -->
+        <div class="modal fade" id="alert_modal" tabindex="-1" role="dialog" aria-labelledby="alert_title" aria-hidden="true" style="z-index: 100001 !important;">
+          <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header no-border" style="background-color: var(--accent);border: 0px;">
+                <h4 class="modal-title" id="alert_title" style="color: white;">Alert !!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: white;"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body" style="background-color: #F7F2F2;border: 0px;" id="alert_modal_body"><h6>Please provide both RNEQC Status and Comment</h6></div>
+              <div class="modal-footer" style="background-color: #F7F2F2;border: 0px;"><button type="button" class="btn btn-secondary btn-cls" data-dismiss="modal">Cancel</button></div>
+            </div>
+          </div>
+        </div><!-- End Modal -->
+      <div><input id="current_user" value="{{ USER }}" style="display: none;"></div>
+	</section>
+	
+{% endblock %} 
+
+{% block data %} {% endblock %}
+
+{% block scripts %}
+	<script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/skeleton.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+	<script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/rnewindow.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+	<script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/rneqc_core.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+    <script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/filters.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+{% endblock scripts %}

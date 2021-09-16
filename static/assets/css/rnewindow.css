@@ -1,0 +1,340 @@
+#edit-rne-window {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background-color: #000000bb;
+	z-index: 99999;
+	padding: calc(10% + 66px) calc(10% + 10px) calc(10% + 42px) calc(10% + 10px);
+	display: none;
+	font-size: 0.9em;
+}
+
+#edit-rne-window > .inner-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--white);
+	border-radius: 10px;
+	color: var(--black);
+	width: calc(80vw - 20px);
+	height: calc(80vh - 108px);
+	box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+}
+
+#edit-rne-window > .inner-container #edit-rne-header {
+	width: 100%;
+	background-color: var(--accent);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 10px;
+}
+
+#edit-rne-window > .inner-container #edit-rne-header #edit-rne-bugid {
+	color: var(--primary);
+	font-weight: bolder;
+	letter-spacing: 1px;
+}
+
+#edit-rne-window > .inner-container #edit-rne-header #btn-move-rne-window {
+	background-color: var(--primary-light);
+	padding: 3px 10px 3px 10px;
+	border-radius: 5px;
+	color: var(--white);
+	cursor: move;
+	margin-right: 10px;
+	float: right;
+}
+
+#edit-rne-window > .inner-container #edit-rne-header #btn-dismiss-rne-window {
+	background-color: var(--primary);
+	padding: 3px 10px 3px 10px;
+	border-radius: 5px;
+	color: var(--white);
+	cursor: pointer;
+	float: right;
+}
+
+#edit-rne-window > .inner-container #edit-rne-body {
+	background-color: var(--white);
+	color: var(--black);
+	width: 100%;
+	height: calc(100%);
+	overflow: hidden;
+	display: flex;
+}
+
+#edit-rne-window > .inner-container #edit-rne-body .left-section.expanded {
+	width: 25%;
+	height: 100%;
+	background-color: var(--primary);
+	float: left;
+	transition: all 0.3s;
+}
+
+#edit-rne-window > .inner-container #edit-rne-body .left-section {
+	width: 40px;
+	background-color: var(--primary);
+	float: left;
+	transition: all 0.3s;
+	color: var(--white);
+}
+
+#edit-rne-window > .inner-container #edit-rne-body .left-section {
+	width: 40px;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.helper-header {
+	width: 100%;
+	float: left;
+	padding: 6px 10px 6px 10px;
+	transform: rotate(0deg);
+	background-color: var(--primary-light);
+	transition: all 0.3s;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.helper-header
+	span {
+	font-size: 1.1em;
+	transform: rotate(0deg);
+	transition: all 0.3s;
+	display: inline-block;
+	padding: 0px;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section
+	.helper-header
+	span {
+	font-size: 1.1em;
+	display: block;
+	transform: rotate(-90deg);
+	padding: 32vh 0px 32vh 0px;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.helper-header
+	#helper-collapse {
+	display: block;
+	float: right;
+	color: var(--white);
+	background-color: var(--primary);
+	padding: 3px 10px 3px 10px;
+	border-radius: 5px;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section
+	.helper-header
+	#helper-collapse {
+	display: none;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.rne-helper-sections-container {
+	float: left;
+	display: block;
+	height: 100%;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section
+	.rne-helper-sections-container {
+	display: none;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.rne-helper-sections-container
+	.rne-helper-sections {
+	display: none;
+	padding: 10px;
+	float: left;
+	height: calc(100% - 75px);
+	width: 100%;
+	overflow: auto;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.left-section.expanded
+	.rne-helper-sections-container
+	div:first-of-type {
+	display: block;
+}
+
+#edit-rne-window > .inner-container #edit-rne-body #edit-rne-form {
+	flex-grow: 100;
+	height: calc(100% - 40px);
+	transition: all 0.3s;
+	font-size: 0.9em;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	.edit-input-group-container {
+	padding-top: 10px;
+	overflow-y: auto;
+	width: 100%;
+	height: calc(100% - 30px);
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	.rne-input-group {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 0px 10px 0px 10px;
+	display: flex;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	label.edit-rne-label {
+	width: 120px;
+	float: left;
+	font-weight: bold;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	.edit-rne-input {
+	flex-grow: 100;
+	border-radius: 3px;
+	border: none;
+	box-shadow: inset 0px 0px 2px 0px rgb(0 0 0 / 50%);
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	textarea.edit-rne-input {
+	min-height: 80px;
+	height: fit-content;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	#edit-rne-form
+	textarea.edit-rne-input:focus {
+	height: 35vh;
+}
+
+#edit-rne-window > .inner-container #edit-rne-body .edit-action-container {
+	background-color: var(--primary-light);
+	width: 100%;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	.btn-edit-actions {
+	border: none;
+	border-radius: 3px;
+	color: var(--white);
+	padding: 3px 10px 3px 10px;
+	width: 120px;
+	margin: 2px;
+	font-weight: bold;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	button.btn-edit-actions.success {
+	background-color: var(--success);
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	button.btn-edit-actions.neutral {
+	background-color: var(--primary);
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	button.btn-edit-actions.danger {
+	background-color: var(--danger);
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	.btn-edit-actions.logger {
+	background: none;
+	margin-right: 10px;
+	font-style: italic;
+	width: auto;
+	display: none;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	.btn-edit-actions.logger.success {
+	color: var(--success);
+	display: block;
+}
+
+#edit-rne-window
+	> .inner-container
+	#edit-rne-body
+	.edit-action-container
+	.btn-edit-actions.logger.danger {
+	color: var(--danger);
+	display: block;
+}
+
+.rne-helper-sections ul {
+    margin-left: 10px;
+}

@@ -1,0 +1,47 @@
+.filters-section {
+	background: linear-gradient(
+		to bottom,
+		rgba(0, 230, 230, 0.2),
+		rgba(0, 0, 0, 0)
+	);
+}
+.filter-select {
+	text-align-last: center;
+	background-color: var(--primary-light);
+	border-radius: 3px;
+	border: none;
+	width: 100%;
+	color: var(--accent-light);
+}
+
+thead.filters-container th {
+	vertical-align: middle !important;
+}
+
+.pr-0 {
+	padding-right: 0 !important;
+}
+
+#filters_container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+tr.hide-row {
+	display: none;
+}
+
+.filters-container {
+	border-top: 1px solid var(--accent);
+	border-bottom: 1px solid var(--accent);
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.filters-container #reset-filters {
+	color: var(--primary);
+	background-color: var(--accent-light);
+	padding: 0px 5px 0px 5px;
+	border-radius: 3px;
+}

@@ -1,0 +1,151 @@
+{% extends 'skeleton.html' %} {% block title %} RNE-QC {% endblock %} {% block
+links %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='assets/css/home.css') }}?u={{ LAST_UPDATED }}"
+  type="text/css"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+  crossorigin="anonymous"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<body style="margin-bottom: 100px">
+  {% block loader %} {% endblock %} {% block navbar %} {% endblock %} {% block
+  body %}
+
+  <div class="container-fluid">
+      <div class="rne-help-frame">
+        <span
+          ><strong>RNEQC Tool</strong>
+          <hr />
+          <ul>
+          <li>Release-note Quality Check (RNEQC) tool is a framework that
+          facilitates the review and update of bug Release-note.</li>
+        </span>
+        <br />
+        <div class="row"> 
+          <div class="col-8">
+            <img
+              src="{{ url_for('static', filename='assets/img/RNE.png') }}"
+              class="d-block w-100"
+              alt=".Release Note Enclosure."
+            />
+          </div>
+          <div class="col-2"></div>
+        </div>
+        <br />
+        <li><span
+          >Allow customers to search for bugs using <strong>Bug ID</strong> or <strong>list of bugID's </strong> or <strong>scrubber id</strong>
+        </span>
+        e.g. osman-50 or CSCvw54014 or CSCvw54014 ,CSCvw54016</li>
+        <br />
+        <div class="row">
+          <div class="col-3">
+            <img
+              src="{{ url_for('static', filename='assets/img/HELP_BugID.png') }}"
+              class="d-block w-100"
+              alt=".RNE bugid."
+            />
+          </div>
+          <br />
+
+          <div class="col-3">
+            <img
+              src="{{ url_for('static', filename='assets/img/HELP_scrubberid.png') }}"
+              class="d-block w-100"
+              alt=".RNE scrubberid."
+            />
+          </div>
+          <br />
+          <div class="col-3">
+            <img
+              src="{{ url_for('static', filename='assets/img/HELP_BugList.png') }}"
+              class="d-block w-100"
+              alt=".RNE listofbugs."
+            />
+          </div>
+          <div class="col-3">
+          </div>
+        </div>
+        <br />
+        <li><b>Bug count</b> and <b>Filters</b> are provided on top for filtering data present on page. Filters values get updated based on selected fields value.</li>
+        <br/>
+        <li>On Page load,<b>Offenders gets highlighted</b> which is a bug with "Released-code"="Y" and "$$IGNORE" or "$$PREFCS" flag.</li>
+        <br/>
+      <li><span>User can add a review comment in <strong>Add Note</strong>. Logs with user and timestamp gets captured for comments added for bug.</span></li>
+      <br/>
+      <li>RNE status can be added and updated for a bug.<b> Adding comments is mandatory with RNE status update</b>. At a time only one RNE status can be attached to bug</li>
+      <br />
+        <div class="col-8">
+          <img
+            src="{{ url_for('static', filename='assets/img/HELP_note.png') }}"
+            class="d-block w-100"
+            alt=".ADD Note."
+          />
+        </div>
+        <br/>
+         <li>RNEQC status Workflow.</li>
+         <br/>
+        <div class="col-8">
+          <img
+            src="{{ url_for('static', filename='assets/img/RNEQC_status.jpg') }}"
+            class="d-block w-100"
+            alt=".RNEqc workflow."
+          />
+        </div>
+        <br/>
+        <li>
+      <span
+        >User can <strong>ADD RNE</strong> and <strong>EDIT RNE</strong>/Release-note for bug using ADD or Edit RNE window.
+      </span></li>
+      <br/>
+      <li>If Release-note is not present for a bug ,<b>missing RNE </b>will be displayed in screen with a link to 'ADD RNE'.</li>
+      <br/>
+      <li>If Release-note is  present for a bug ,RNE will be displayed with better view with with all RNE contents in screen and a link to 'Edit RNE'.</li>
+      <br/>
+       <div class="col-8">
+        <img
+          src="{{ url_for('static', filename='assets/img/HELP_ReleaseNotes.png') }}"
+          class="d-block w-100"
+          alt=".Release Note."
+        />
+      </div>
+      <br />
+       <li><b>In RNE window</b>, Guidelines are provided for each field with all details such as 'what to consider', 'what to avoid' and 'link to Great RNE example' to write a Great RNE.</li>
+       <br/>
+       <li>By default Guidelines are shown but user can close the guidelines for making more space for editing or adding RNE Contents</li>
+       <br/>
+       <li>User can edit headline and other RNE fields and click on save for updating. Reset is also Provided incase user wants to undo the changes.</li>
+       <br/>
+       <li> The RNE window can be closed either by clicking on dismiss button provide on top or clicking on cancel btton provided in bottom.</li>
+       <br/>
+       <div class="col-8">
+        <img
+          src="{{ url_for('static', filename='assets/img/HELP_EditRne.png') }}"
+          class="d-block w-100"
+          alt=".EDIT RNE window."
+        />
+      </div>
+      </div>
+    <br />
+  </div>
+
+  {% endblock %} {% block data %} {% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.12/xlsx.core.min.js"></script>
+  {% block scripts %}
+  <script
+    type=" text/javascript"
+    src="{{ url_for('static', filename='assets/js/rneqc_core.js') }}?u={{ LAST_UPDATED }}"
+  ></script>
+  {% endblock %}
+</body>

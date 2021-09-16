@@ -1,0 +1,261 @@
+{% extends 'skeleton.html' %} {% block title %} RNE-QC {% endblock %} {% block
+links %}
+<link
+	rel="stylesheet"
+	href="{{ url_for('static', filename='assets/css/home.css') }}?u={{ LAST_UPDATED }}"
+	type="text/css"
+/>
+<link
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous"
+/>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+	rel="stylesheet"
+/>
+
+{% endblock %}
+
+<body style="margin-bottom: 100px">
+	{% block loader %} {% endblock %}
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+		<a class="navbar-brand" href="/">
+			<img
+				class=""
+				src="{{ url_for('static', filename='assets/img/cisco-logo.png') }}"
+				width="auto"
+				height="30"
+				alt="CISCO Logo"
+			/>
+			<img
+				class=""
+				src="{{ url_for('static', filename='assets/img/cend_logo.png') }}"
+				width="auto"
+				height="30"
+				alt="CEND Logo"
+			/>
+		</a>
+		<span class="text-info my-auto text-inline nav-title"
+			>RNE Quality Check </span
+		><span
+			class="text-light ml-2 my-auto"
+			style="font-size: 1.5em; font-weight: 100"
+			>|</span
+		>
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation"
+		>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active my-auto">
+					<a class="nav-link" href="/"
+						>Home <span class="sr-only">(current)</span></a
+					>
+				</li>
+			</ul>
+			{% if MESSAGE %}
+			<div
+				class="mr-2 my-auto alert alert-sm alert-{{ STATUS }} alert-dismissible fade show"
+				role="alert"
+				style="font-size: 0.9em"
+			>
+				{{ MESSAGE }}
+				<button
+					type="button"
+					class="close my-auto"
+					data-dismiss="alert"
+					aria-label="Close"
+				>
+					<span aria-hidden="false">&times;</span>
+				</button>
+			</div>
+			{% endif %}
+			<form class="form-inline my-2 my-lg-0" id="nav-right-content">
+				{% block apikey %} {% endblock %}
+				<button
+					style="display: none"
+					class="btn btn-outline-danger my-2 my-sm-0"
+					onclick="return processLogout();"
+					type="submit"
+				>
+					Logout
+				</button>
+			</form>
+		</div>
+	</nav>
+
+	{% block navbar %} {% endblock %} {% block body %}
+
+	<div class="container-fluid">
+		<div class="col-12">
+			<div class="rne-frame">
+				<span>
+					Welcome to the RNE Quality Check framework. You are entering the last
+					frontier that AI can only aspire to conquer, where your expertise and
+					communication skills can make a huge difference. Bug Release-note (RNE)
+					enables our customers to determine if the Cisco network, product, or
+					service is subject to a problem, identify the appropriate bug if the
+					behaviour is observed, and provide a workaround to the problem if
+					possible. Your contribution to having good RNEs will have a direct
+					correlation to a lesser number of customer SRs.
+				</span>
+				<br /><br />
+				<span>
+					Release-note is a living document, it is updated whenever useful
+					information about symptoms, conditions and workarounds becomes
+					available. RNE compliance check is required per CPDM. Our BU goal is to
+					review all bugs that exist in shipped code upon bug resolution.
+				</span>
+				<br /><br />
+				<span>
+					Find the RNE TOI videos and lots of other great RNE resources at:
+				</span>
+				<a target="_blank"
+					rel="noopener noreferrer"
+					href="https://wiki.cisco.com/display/XR1/RNE+know-it-All">
+					<strong>RNE-Know it All</strong></a>
+			</div>
+		</div>
+		<br/>
+	<div class="rne_ppt">
+    	<div class="col-10">
+		<span><strong>RNEQC Tool</strong><br/>Release-note Quality Check (RNEQC) tool is a framework that facilitates the review and update of bug Release-notes. </span>
+			<div
+			id="carouselExampleDark"
+			class="carousel carousel-dark slide"
+			data-bs-ride="carousel"
+			>
+			<div class="carousel-inner">
+<div class="carousel-item active">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNEQC_status.jpg') }}"
+					class="d-block w-100"
+					alt=".RNE status workflow."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_Listofbugs.png') }}"
+					class="d-block w-100"
+					alt=".RNE bug list."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_headline.png') }}"
+					class="d-block w-100"
+					alt=".RNE headline."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_flag.png') }}"
+					class="d-block w-100"
+					alt=".RNE Flag."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_symptoms.png') }}"
+					class="d-block w-100"
+					alt=".RNE Symptoms."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_condition.png') }}"
+					class="d-block w-100"
+					alt=".RNE condition."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_workaround.png') }}"
+					class="d-block w-100"
+					alt=".RNE workaround."
+				/>
+				</div>
+				<div class="carousel-item">
+				<img
+					src="{{ url_for('static', filename='assets/img/RNE_FDP.png') }}"
+					class="d-block w-100"
+					alt=".RNE FDP."
+				/>
+				</div>
+			</div>
+			<button
+				class="carousel-control-prev"
+				type="button"
+				data-bs-target="#carouselExampleDark"
+				data-bs-slide="prev"
+			>
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button
+				class="carousel-control-next"
+				type="button"
+				data-bs-target="#carouselExampleDark"
+				data-bs-slide="next"
+			>
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+			</div>
+		</div>
+    </div>
+ </div>
+
+		<div>
+			<input id="current_user" value="{{ USER }}" style="display: none" />
+		</div>
+	</div>
+	{% endblock %} {% block data %} {% endblock %}
+	<footer
+		class="text-light bg-dark py-2 text-center"
+		style="position: fixed; bottom: 0; width: 100vw; opacity: 0.9"
+	>
+		For any queries or feedback contact
+		<a href="mailto:rneqc-team@cisco.com"
+			><strong>rneqc-team@cisco.com</strong></a
+		>
+	</footer>
+
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"
+	></script>
+	<script src="https://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.12/xlsx.core.min.js"></script>
+	 <script
+    type=" text/javascript"
+    src="{{ url_for('static', filename='assets/js/home.js') }}?u={{ LAST_UPDATE }}"
+  ></script>
+	<script
+		type="text/javascript"
+		src="{{ url_for('static', filename='assets/js/show_query.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+	{% block scripts %}
+	<script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/skeleton.js') }}?u={{ LAST_UPDATED }}"
+	></script>
+	<script
+		type=" text/javascript"
+		src="{{ url_for('static', filename='assets/js/rneqc_core.js') }}?u={{ LAST_UPDATE }}"
+	></script>
+	{% endblock %}
+</body>

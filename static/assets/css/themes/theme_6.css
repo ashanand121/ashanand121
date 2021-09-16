@@ -1,0 +1,25 @@
+:root {
+	--accent: #ffe6a7;
+	--accent-light: #ffdccc !important;
+	--accent-alpha: #ffdccc26 !important;
+	--primary: #331724 !important;
+	--primary-light: #fb6376 !important;
+	--primary-alpha: #3317241f !important;
+	--primary-alpha-50: #3317247a !important;
+	--white: #f8f8f8 !important;
+	--black: #202020 !important;
+	--success: #00b10f !important;
+	--warning: #db7500 !important;
+	--danger: #ca0000 !important;
+	--transparent: #00000000 !important;
+	--rneqc-excellent-rne: rgb(200, 154, 0) !important;
+	--rneqc-updated: rgb(0, 132, 255) !important;
+	--rneqc-update-requested: rgb(161, 0, 108) !important;
+	--rneqc-review-completed: rgb(1, 141, 75) !important;
+	--rneqc-empty: rgb(116, 116, 116) !important;
+	--offender: #f9cfc7 !important;
+}
+
+.text-accent {
+	color: var(--accent) !important;
+}

@@ -1,0 +1,15 @@
+.rne-frame {
+  background-color: var(--accent-light);
+  margin-top: 2%;
+}
+
+.rne_ppt {
+  height: 50%;
+  width: 80%;
+}
+
+.rne-help-frame {
+  background-color: var(--accent-light);
+  margin: 2%;
+  padding: 2%;
+}

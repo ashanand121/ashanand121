@@ -1,0 +1,57 @@
+.outer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #037fc0, white);
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30vw;
+    /* height: 50vh; */
+    transform: translate(-50%, -50%);
+    background: #fafafa;
+    border-radius: 10px;
+    /* border: 0.5px solid #555555; */
+}
+
+#title h1 {
+    color: #037fc0;
+}
+
+#title span:nth-child(1) {
+    font-family: 'Acknow';
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+
+#title span:nth-child(2) {
+    font-family: 'Reey';
+}
+
+.error {
+    border-color: #c43333;
+    background-color: rgba(204, 69, 51, 0.08);
+}
+
+.error::placeholder {
+    color: rgba(204, 49, 31, 0.8);
+}
+
+@font-face {
+    font-family: 'Acknow';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/acknow.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Reey';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/reey-regular.otf') format('opentype');
+}
